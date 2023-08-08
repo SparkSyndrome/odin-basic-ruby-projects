@@ -1,29 +1,23 @@
-ALPHABET = "abcdefghijklmonpqrstuvwxyz".split("")
+ALPHABET = ('a'..'z').to_a
 
-def caesar_cipher(message, num_offset)
-  new_message_array = []
-  # Convert original message to array and downcase
-  string_array = message.downcase.split("")
+def caesar_cipher(message, shift_factor)
+  new_message = []
+  message_array = message.downcase.split("")
 
-  # Add characters from original_message_array into new_message_array
-  string_array.each_with_index do |char, i|
-    # Check if included in ALPHABET dictionary
+  # Add chars from message_array into new_message; shift char if applicable
+  message_array.each do |char|
+    # Check if char is included in ALPHABET dictionary
     if !ALPHABET.include?(char)
-      new_message_array << char
+      new_message << char
     else
-      new_message_array << char
+      # Char was in ALPHABET, so shift char by the factor
+      new_message << ALPHABET[(ALPHABET.index(char) + shift_factor) % 26]
     end
   end
 
-  # Convert new message to string
-  new_message = new_message_array.join("")
-  # Restor capitalization
-  new_message.capitalize!
-  p new_message + " It worked"
+  # Convert new_message array into string, restore capitalization
+  new_message = new_message.join("").capitalize
+  puts new_message
 end
 
 caesar_cipher("What a string!", 5)
-
-############################################
-# NEED TO GET THE CHAR OFFSET WORKING STILL
-############################################
