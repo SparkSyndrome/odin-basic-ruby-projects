@@ -1,30 +1,23 @@
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
 
-def substrings(word, dictionary)
-  sub = []
-  substrings = Hash.new(0)
-
-  until sub.length == word.length
-    word.each_char do |char|
-      sub << char
-
-      if dictionary.include?(sub.join(""))
-        substrings[sub.join("")] += 1
-        substrings
+def substrings(string, dictionary)
+  hash = {}
+  string_array = string.downcase.split
+  
+  string_array.each do |snippet|
+    dictionary.each do |word|
+      if snippet.include?(word)
+        if hash.has_key?(word)
+          hash[word] += 1
+        else
+          hash[word] = 1
+        end
       end
     end
   end
 
-  until sub.length == 0
-    sub.shift
-
-    if dictionary.include?(sub.join(""))
-      substrings[sub.join("")] += 1
-      substrings
-    end
-  end
-
-  p substrings
+  puts hash
 end
 
 substrings("below", dictionary)
+substrings("Howdy partner, sit down! How's it going?", dictionary)
